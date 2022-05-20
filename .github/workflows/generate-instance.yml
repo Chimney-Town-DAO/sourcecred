@@ -10,6 +10,17 @@ on:
 
 jobs:
   GenerateCredInstance:
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max_old_space_size=8192
@@ -40,6 +51,8 @@ jobs:
           yarn sourcecred site
           rm -rf ./site/{output,data,config,sourcecred.json}
           cp -r ./{output,data,config,sourcecred.json,package.json,yarn.lock} ./site/
+          sed -i -e 's/<title>SourceCred<\/title>/<meta charset="utf-8"><title>ChimneyTownDAO SourceCred<\/title>/g' ./site/index.html
+          sed -i -e 's/<\/head>/<script src="https:\/\/nakada-files.s3.ap-northeast-1.amazonaws.com\/ChimneyDao\/sourceCredJS\/sourceCredUpdateName.js"><\/script><\/head>/g' ./site/index.html
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
