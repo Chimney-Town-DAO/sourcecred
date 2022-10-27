@@ -2,11 +2,14 @@ name: Generate Cred Instance
 on:
   # Trigger on merging to main.
   push:
-    branches:
-      - main
+    branches-ignore:
+      - '**'
+
+#    branches:
+#      - main
   # As well as every 24 hours (at 0:00 UTC).
-  schedule:
-    - cron: 0 0 * * *
+#  schedule:
+#    - cron: 0 0 * * *
 
 jobs:
   GenerateCredInstance:
